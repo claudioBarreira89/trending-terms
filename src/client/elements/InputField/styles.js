@@ -49,5 +49,5 @@ export const LoaderWrapper = styled.div`
     position: absolute;
     transform: translateY(-50%);
     top: 50%;
-    right: 15px;
+    right: 22px;
 `;

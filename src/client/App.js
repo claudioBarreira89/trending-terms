@@ -15,12 +15,10 @@ const App = () => {
     useEffect(() => {
         (async function() {
             const configuration = await apiService.postConfiguration();
-            setTimeout(() => {
-                setState(s => ({
-                    ...s,
-                    configuration
-                }));
-            }, 1000);
+            setState(s => ({
+                ...s,
+                configuration
+            }));
         })();
     }, []);
 

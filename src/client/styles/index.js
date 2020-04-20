@@ -38,6 +38,8 @@ const GlobalStyles = createGlobalStyle`
 export const AppWrapper = styled.div`
     opacity: 1;
     transition: 0.4s;
+    min-width: 767px;
+
     ${({ isVisible }) =>
         isVisible &&
         `    

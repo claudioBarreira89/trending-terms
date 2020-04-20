@@ -14,9 +14,15 @@ class ApiService {
                 headers: this.headers
             });
 
-            const data = await response.json();
-            return data;
-        } catch (e) {}
+            if (response.status === 200) {
+                const data = await response.json();
+                return data;
+            } else {
+                alert("There was an error");
+            }
+        } catch (e) {
+            alert("There was an error");
+        }
     }
 
     async getTerms(terms, geo) {
@@ -29,9 +35,15 @@ class ApiService {
                 headers: this.headers
             });
 
-            const data = await response.json();
-            return data;
-        } catch (e) {}
+            if (response.status === 200) {
+                const data = await response.json();
+                return data;
+            } else {
+                alert("There was an error");
+            }
+        } catch (e) {
+            alert("There was an error");
+        }
     }
 }
 
