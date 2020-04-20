@@ -1,4 +1,4 @@
-import { createGlobalStyle } from "styled-components";
+import styled, { createGlobalStyle } from "styled-components";
 import colors from "./colors";
 
 const GlobalStyles = createGlobalStyle`
@@ -32,6 +32,26 @@ const GlobalStyles = createGlobalStyle`
         letter-spacing: 1px;
         margin-bottom: 20px;
 
+    }
+`;
+
+export const AppWrapper = styled.div`
+    opacity: 1;
+    transition: 0.4s;
+    ${({ isVisible }) =>
+        isVisible &&
+        `    
+        animation-name: opacityAnimation;
+        animation-duration: .5s;
+    `}
+
+    @keyframes opacityAnimation {
+        from {
+            opacity: 0;
+        }
+        to {
+            opacity: 1;
+        }
     }
 `;
 

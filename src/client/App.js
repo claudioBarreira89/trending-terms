@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import GlobalStyles from "./styles";
+import GlobalStyles, { AppWrapper } from "./styles";
 import { SearchField, Results } from "./components";
 import apiService from "./services";
 
@@ -8,17 +8,19 @@ const App = () => {
         isLoading: false,
         data: null,
         terms: [],
-        submittedTerms: []
+        submittedTerms: [],
+        configuration: null
     });
 
     useEffect(() => {
         (async function() {
             const configuration = await apiService.postConfiguration();
-
-            setState(s => ({
-                ...s,
-                configuration
-            }));
+            setTimeout(() => {
+                setState(s => ({
+                    ...s,
+                    configuration
+                }));
+            }, 1000);
         })();
     }, []);
 
@@ -63,18 +65,22 @@ const App = () => {
     return (
         <>
             <GlobalStyles />
-            <SearchField
-                getData={getData}
-                setTerms={setTerms}
-                data={state.data}
-                isLoading={state.isLoading}
-            />
-            <Results
-                data={state.data}
-                isSubmitted={state.isSubmitted}
-                terms={state.submittedTerms}
-                isLoading={state.isLoading}
-            />
+            {state.configuration && (
+                <AppWrapper isVisible={!!state.configuration}>
+                    <SearchField
+                        getData={getData}
+                        setTerms={setTerms}
+                        data={state.data}
+                        isLoading={state.isLoading}
+                    />
+                    <Results
+                        data={state.data}
+                        isSubmitted={state.isSubmitted}
+                        terms={state.submittedTerms}
+                        isLoading={state.isLoading}
+                    />
+                </AppWrapper>
+            )}
         </>
     );
 };

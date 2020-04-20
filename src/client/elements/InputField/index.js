@@ -15,6 +15,7 @@ const InputField = ({ handleClick, handleChange, isLoading }) => {
                 placeholder="Search for one or more terms separated by commas"
                 onChange={e => handleChange(e.target.value)}
                 onKeyPress={e => e.key === "Enter" && handleClick()}
+                data-testid={"inputField"}
             />
             {!isLoading ? (
                 <StyledSubmit onClick={handleClick}>
@@ -36,7 +37,7 @@ const InputField = ({ handleClick, handleChange, isLoading }) => {
                 </StyledSubmit>
             ) : (
                 <LoaderWrapper>
-                    <Loader />
+                    <Loader dataTestId="loadingSpinner" />
                 </LoaderWrapper>
             )}
         </StyledWrapper>
