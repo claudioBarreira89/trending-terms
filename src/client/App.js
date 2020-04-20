@@ -5,40 +5,59 @@ import apiService from "./services";
 
 const App = () => {
     const [state, setState] = useState({
-        isSubmitted: false,
+        isLoading: false,
         data: null,
-        terms: null
+        terms: [],
+        submittedTerms: []
     });
 
     const getData = async () => {
+        if (state.terms.length === 0) return;
+        toggleLoading();
+
         const terms = state.terms.join("-");
         const data = await apiService.getTerms(terms);
 
         setState({
             ...state,
-            isSubmitted: true,
-            data: data.default
+            submittedTerms: [...state.terms],
+            isLoading: false,
+            data
         });
     };
 
     const setTerms = value => {
-        const terms = value.replace(/\s/g, "").split(",");
+        const terms = value ? value.split(",") : [];
 
         setState({
             ...state,
-            isSubmitted: false,
-            terms
+            terms: terms
+                .map(term => term.replace(/^\s+|\s+$/g, ""))
+                .filter(term => term !== "")
+        });
+    };
+
+    const toggleLoading = () => {
+        setState({
+            ...state,
+            isLoading: !state.isLoading
         });
     };
 
     return (
         <>
             <GlobalStyles />
-            <SearchField getData={getData} setTerms={setTerms} />
+            <SearchField
+                getData={getData}
+                setTerms={setTerms}
+                data={state.data}
+                isLoading={state.isLoading}
+            />
             <Results
                 data={state.data}
                 isSubmitted={state.isSubmitted}
-                terms={state.terms}
+                terms={state.submittedTerms}
+                isLoading={state.isLoading}
             />
         </>
     );

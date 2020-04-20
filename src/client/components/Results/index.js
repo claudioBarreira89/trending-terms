@@ -1,28 +1,37 @@
 import React from "react";
 import { Wrapper } from "../../elements";
-import { SearchedTerms } from "./styles";
-import Chart from "./Chart";
+import { StyledResults, SearchedTerms, StyledTerm, StyledH3 } from "./styles";
+import TermChart from "./TermChart";
 import { colors } from "../../styles";
 
-const Results = ({ data, terms, isSubmitted }) => {
+const Results = ({ data, terms, isLoading }) => {
     return (
-        <div style={{ backgroundColor: colors.lightGray }}>
-            {isSubmitted && (
-                <>
+        <>
+            {data && (
+                <StyledResults>
                     <Wrapper>
+                        <StyledH3>Searched terms:</StyledH3>
                         <SearchedTerms>
-                            <h2>Searched terms:</h2>
                             {terms.map((term, i) => (
-                                <div key={i}>{term}</div>
+                                <StyledTerm
+                                    key={i}
+                                    color={colors.chartColors[i]}
+                                >
+                                    {term}
+                                </StyledTerm>
                             ))}
                         </SearchedTerms>
                     </Wrapper>
                     <Wrapper>
-                        <Chart />
+                        <TermChart
+                            data={data}
+                            terms={terms}
+                            isLoading={isLoading}
+                        />
                     </Wrapper>
-                </>
+                </StyledResults>
             )}
-        </div>
+        </>
     );
 };
 

@@ -26,10 +26,11 @@ const GlobalStyles = createGlobalStyle`
     }
 
     h2 {
-        font-size: 30px;
+        font-size: 26px;
         font-weight: normal;
         color: ${colors.teal};
         letter-spacing: 1px;
+        margin-bottom: 20px;
 
     }
 `;

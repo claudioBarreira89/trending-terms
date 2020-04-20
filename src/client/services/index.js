@@ -5,7 +5,7 @@ class ApiService {
     };
 
     async getTerms(terms) {
-        const endpoint = "/terms";
+        const endpoint = "/search";
         const url = `${this.baseUrl}${endpoint}?terms=${terms}`;
 
         try {
