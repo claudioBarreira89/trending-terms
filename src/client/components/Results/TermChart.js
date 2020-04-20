@@ -25,19 +25,12 @@ const TermChart = ({ data, terms, isLoading }) => {
         []
     );
 
-    //let i = 0;
     const axes = useMemo(
         () => [
             {
                 primary: true,
-                type: "time",
+                type: "ordinal",
                 position: "bottom"
-                // format: () => {
-                //     // const date = new Date(data[terms[0]][i].time);
-                //     // console.log(date);
-                //     // i++;
-                //     return <text>123</text>;
-                // }
             },
             { type: "linear", position: "left" }
         ],

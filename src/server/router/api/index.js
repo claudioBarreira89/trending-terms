@@ -1,15 +1,21 @@
 const router = require("express").Router();
 const googleTrends = require("google-trends-api");
 
+router.post("/configuration", async (req, res) => {
+    res.setHeader("Content-Type", "application/json");
+
+    res.send({ numberOfTerms: 5 });
+});
+
 router.get("/search", async (req, res) => {
     res.setHeader("Content-Type", "application/json");
-    const { terms } = req.query;
+    const { terms, geo } = req.query;
     const keyword = terms.split("-");
 
     try {
         const response = await googleTrends.interestOverTime({
             keyword,
-            geo: "PT"
+            geo
         });
 
         const data = JSON.parse(response);
@@ -21,9 +27,8 @@ router.get("/search", async (req, res) => {
                 if (!results[keyword[ii]]) {
                     results[keyword[ii]] = [];
                 }
-
                 results[keyword[ii]].push({
-                    time: timelineData[i].time,
+                    time: timelineData[i].formattedTime,
                     value: timelineData[i].value[ii]
                 });
             }

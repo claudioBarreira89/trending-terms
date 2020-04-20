@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import GlobalStyles from "./styles";
 import { SearchField, Results } from "./components";
 import apiService from "./services";
@@ -11,16 +11,32 @@ const App = () => {
         submittedTerms: []
     });
 
+    useEffect(() => {
+        (async function() {
+            const configuration = await apiService.postConfiguration();
+
+            setState(s => ({
+                ...s,
+                configuration
+            }));
+        })();
+    }, []);
+
     const getData = async () => {
         if (state.terms.length === 0) return;
         toggleLoading();
 
-        const terms = state.terms.join("-");
-        const data = await apiService.getTerms(terms);
+        const submittedTerms = state.terms.slice(
+            0,
+            state.configuration.numberOfTerms
+        );
+
+        const terms = submittedTerms.join("-");
+        const data = await apiService.getTerms(terms, "PT");
 
         setState({
             ...state,
-            submittedTerms: [...state.terms],
+            submittedTerms,
             isLoading: false,
             data
         });

@@ -4,9 +4,24 @@ class ApiService {
         "content-type": "application/json"
     };
 
-    async getTerms(terms) {
+    async postConfiguration() {
+        const endpoint = "/configuration";
+        const url = `${this.baseUrl}${endpoint}`;
+
+        try {
+            const response = await fetch(url, {
+                method: "post",
+                headers: this.headers
+            });
+
+            const data = await response.json();
+            return data;
+        } catch (e) {}
+    }
+
+    async getTerms(terms, geo) {
         const endpoint = "/search";
-        const url = `${this.baseUrl}${endpoint}?terms=${terms}`;
+        const url = `${this.baseUrl}${endpoint}?terms=${terms}&geo=${geo}`;
 
         try {
             const response = await fetch(url, {

@@ -45,6 +45,18 @@ export const StyledChart = styled.div`
     box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.12);
     margin-bottom: 30px;
     background-color: ${colors.white};
+
+    .ReactChart {
+        .axes {
+            .Axis:first-child .tick {
+                display: none;
+            }
+
+            .Axis:first-child .tick:nth-child(26n + 26) {
+                display: block;
+            }
+        }
+    }
 `;
 
 export const StyledLoader = styled.img`
