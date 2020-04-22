@@ -73,7 +73,6 @@ const App = () => {
                     />
                     <Results
                         data={state.data}
-                        isSubmitted={state.isSubmitted}
                         terms={state.submittedTerms}
                         isLoading={state.isLoading}
                     />
